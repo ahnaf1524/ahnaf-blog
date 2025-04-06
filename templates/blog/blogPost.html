@@ -1,0 +1,101 @@
+{% extends "base.html" %}
+{% load markdown_extras %}
+
+{% block title %}{{ blog.title }} | Blog Details{% endblock title %}
+
+{% block body %}
+<!-- Highlight.js Core -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/monokai.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+
+<!-- Line Numbers Plugin -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/plugins/line-numbers.min.css">
+<script src="https://cdn.jsdelivr.net/npm/highlightjs-line-numbers.js/dist/highlightjs-line-numbers.min.js"></script>
+
+<script>
+  document.addEventListener('DOMContentLoaded', (event) => {
+    document.querySelectorAll('pre code').forEach((block) => {
+      hljs.highlightElement(block);
+      block.parentElement.classList.add('hljs', 'line-numbers');
+    });
+
+    // Generate Table of Contents dynamically from the headings
+    const toc = document.getElementById('toc');
+    document.querySelectorAll('h1, h2 , h3').forEach((heading) => {
+      const id = heading.id || heading.innerText.toLowerCase().replace(/\s+/g, '-');
+      heading.id = id; // Set the ID for each heading
+      const link = document.createElement('a');
+      link.href = `#${id}`;
+      link.innerText = heading.innerText;
+      const listItem = document.createElement('li');
+      listItem.classList.add('p-1'); 
+      listItem.appendChild(link);
+      toc.appendChild(listItem);
+    });
+  });
+</script>
+
+<section class="container py-5">
+  <div class="row">
+    <div class="col-lg-3 col-md-4 col-sm-12 mb-4 gap-2">
+      <!-- Sidebar for Bookmarks (Table of Contents) -->
+      <div class="sticky-top" style="top: 100px;">
+        <h4 class="mb-3">Contents</h4>
+        <ul id="toc" class="list-unstyled">
+          <!-- Bookmarks will be inserted here dynamically -->
+        </ul>
+      </div>
+    </div>
+
+    <div class="col-lg-9 col-md-8 col-sm-12">
+      <!-- Blog Content -->
+      <div class="content-section">
+        <!-- Blog Title -->
+        <h1 class="mb-3 fw-bold">{{ blog.title }}</h1>
+
+        <!-- Author and Meta Info -->
+        <div class="text-muted mb-4">
+          <span>By <strong>{{ blog.author }}</strong></span> | 
+          <span>Published on {{ blog.published_date|date:"F d, Y" }}</span> | 
+          <span>Updated on {{ blog.updated_date|date:"F d, Y" }}</span> | 
+          <span>{{ blog.view_count }} views</span>
+        </div>
+
+        <!-- Featured Image -->
+        {% if blog.image_url %}
+          <img src="{{ blog.image_url }}" class="img-fluid rounded mb-4" alt="Blog Image">
+        {% endif %}
+
+        <!-- Blog Content -->
+        <div class="custom-markdown mb-5">
+          {{ blog.content|markdownify|safe }}
+        </div>
+
+        <!-- Categories -->
+        {% if blog.categories.all %}
+          <div class="mb-3">
+            <strong>Categories:</strong>
+            {% for category in blog.categories.all %}
+              <span class="badge bg-primary me-1">{{ category.name }}</span>
+            {% endfor %}
+          </div>
+        {% endif %}
+
+        <!-- Hashtags -->
+        {% if blog.hashtags.all %}
+          <div class="mb-4">
+            <strong>Tags:</strong>
+            {% for hashtag in blog.hashtags.all %}
+              <span class="text-muted">{{ hashtag.name }}</span>{% if not forloop.last %}, {% endif %}
+            {% endfor %}
+          </div>
+        {% endif %}
+
+        <!-- Status -->
+        <p class="mt-3"><small class="text-muted">Status: {{ blog.status|title }}</small></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% endblock body %}

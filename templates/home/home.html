@@ -1,0 +1,96 @@
+{% extends "base.html" %}
+{% block title %}Home{% endblock title %}
+{% block body %}
+<header>
+  <!-- Intro settings -->
+  <style>
+    /* Default height for small devices */
+    #intro-example {
+      height: 400px;
+    }
+
+    /* Height for devices larger than 992px */
+    @media (min-width: 992px) {
+      #intro-example {
+        height: 600px;
+      }
+    }
+  </style>
+
+
+<!-- Hero Section -->
+<div id="intro-example" class="text-center bg-image"
+  style="background-image: url('https://mdbcdn.b-cdn.net/img/new/slides/041.webp'); 
+         background-size: cover; 
+         background-repeat: no-repeat; 
+         background-position: center; 
+         height: 555px;">
+  
+         <div class="mask" style="background-color: rgba(0, 0, 0, 0.7); height: 100%;">
+          <div class="d-flex justify-content-center align-items-center h-100">
+            <div class="text-white text-center">
+              <h1 class="mb-3">Explore Ideas, Stories & Insights</h1>
+              <h5 class="mb-4">A personal blog platform where I share <br> thoughts, tutorials, and discoveries across various categories</h5>
+              <button type="button" class="btn btn-primary btn-lg">Start Reading</button>
+            </div>
+          </div>
+        </div>
+        
+
+  <!-- Background image -->
+</header>
+
+
+<section id="popular-posts" class="py-5">
+  <div class="container">
+    <!-- Section Intro -->
+    <div class="text-center mb-5">
+      <h2>Latest Posts</h2>
+<p>Discover the most recent posts on web development, blogging, and other tech-related topics. Stay up-to-date with the latest trends, tips, and tutorials to help you enhance your skills and knowledge in the ever-evolving world of technology.</p>
+
+    </div>
+
+    <!-- Blog Posts Row (3 cards per row) -->
+    <div class="row g-4">
+      <!-- Blog Post 1 -->
+      <div class="col-md-4">
+        <div class="card">
+          <img src="https://thumbs.dreamstime.com/b/web-development-coding-programming-internet-technology-business-concept-web-development-coding-programming-internet-technology-121903546.jpg" class="card-img-top" alt="Popular Post 1">
+          <div class="card-body">
+            <h5 class="card-title">Exploring the World of Web Development</h5>
+            <p class="card-text">A deep dive into web development, covering the essentials from front-end to back-end technologies. Perfect for beginners looking to start their journey in tech.</p>
+            <a href="#" class="btn btn-primary">Read More</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Blog Post 2 -->
+      <div class="col-md-4">
+        <div class="card">
+          <img src="https://ahkr.b-cdn.net/wp-content/uploads/2024/02/personal-blogging-featured.jpg" class="card-img-top" alt="Popular Post 2">
+          <div class="card-body">
+            <h5 class="card-title">How to Build Your First Personal Blog</h5>
+            <p class="card-text">Step-by-step guide to creating your very own personal blog. Learn how to set up, customize, and write your first post to engage your audience.</p>
+            <a href="#" class="btn btn-primary">Read More</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Blog Post 3 -->
+      <div class="col-md-4">
+        <div class="card">
+          <img src="https://acquisitioninternational.digital/wp-content/uploads/2021/09/UI-UX-Design.jpg" class="card-img-top" alt="Popular Post 3">
+          <div class="card-body">
+            <h5 class="card-title">UI/UX Design Best Practices</h5>
+            <p class="card-text">Learn about the best practices in UI/UX design that can help you create more intuitive, user-friendly websites and applications.</p>
+            <a href="#" class="btn btn-primary">Read More</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+
+{% endblock body %}

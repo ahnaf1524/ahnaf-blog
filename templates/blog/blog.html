@@ -1,0 +1,102 @@
+{% extends "base.html" %}
+{% block title %}Blogs{% endblock title %}
+{% block body %}
+{% load markdown_extras %}
+<div class="container mt-5">
+  <!-- Search and Filter Section -->
+  <div class="row mb-4 align-items-center">
+    <div class="col-md-7">
+      <h2>All Blog Posts</h2>
+      <p>Explore the latest articles on web development, coding tutorials, and more.</p>
+    </div>
+    <div class="col-md-5 d-flex justify-content-around gap-2">
+      <!-- Filter by Hashtag -->
+      <form method="GET" class="d-flex gap-2">
+        <select class="form-select" name="hashtag" aria-label="Filter by Hashtag">
+          <option value="">Filter by Hashtags</option>
+          {% for hashtag in hashtags %}
+            <option value="{{ hashtag.id }}" {% if request.GET.hashtag == hashtag.id|stringformat:"s" %}selected{% endif %}>{{ hashtag.name }}</option>
+          {% endfor %}
+        </select>  
+
+        <!-- Filter by Category -->
+        <select class="form-select" name="category" aria-label="Filter by Category">
+          <option value="">Filter by Category</option>
+          {% for category in categories %}
+            <option value="{{ category.id }}" {% if request.GET.category == category.id|stringformat:"s" %}selected{% endif %}>{{ category.name }}</option>
+          {% endfor %}
+        </select>
+
+        <button type="submit" class="btn btn-primary">Apply</button>
+        <button type="submit" class="btn btn-danger">
+          
+          <a href="/blog" class="link-offset-2 link-underline link-underline-opacity-0  link-light">Reset</a>
+
+        </button>
+      </form>
+    </div>
+  </div>
+  
+
+  <div class="container mt-5">
+    <div class="row justify-content-around">
+      <div class="col-md-6">
+        {% for blog in blogs %}
+        <div class="card mb-3">
+          <h5 class="card-header">Written by {{ blog.author }}</h5>
+          <div class="card-body">
+        
+            <!-- Blog Title and Icon -->
+            <div class="d-flex justify-content-between align-items-center">
+              <h5 class="card-title mb-0">{{ blog.title }}</h5>
+              <i class="bi bi-0-circle-fill"></i>
+            </div>
+        
+           <!-- Short Blog Description (Truncated) -->
+           <p class="card-text mt-2">{{blog.title}}...</p>
+            <!-- Read More and Show Details Buttons -->
+            <div class="d-flex gap-2 mb-2">
+              <a href="{% url 'blogPost' slug=blog.slug %}" class="btn btn-link p-0">Read More</a>
+              <a href="{% url 'blogPost' slug=blog.slug %}" class="btn btn-dark btn-sm">Show Details</a>
+            </div>
+        
+            <!-- Last Updated -->
+            <p class="card-text"><small class="text-body-secondary">Last updated {{ blog.last_updated|date:"F j, Y" }}</small></p>
+            
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+  
+
+  <!-- Pagination Section -->
+  <div class="row mt-4">
+    <div class="col-md-12 d-flex justify-content-center">
+      <nav aria-label="Page navigation">
+        <ul class="pagination">
+<!-- Previous Button -->
+<li class="page-item {% if not blogs.has_previous %}disabled{% endif %}">
+  <a class="page-link" href="{% if blogs.has_previous %}?page={{ blogs.previous_page_number }}{% if request.GET.hashtag %}&hashtag={{ request.GET.hashtag }}{% endif %}{% if request.GET.category %}&category={{ request.GET.category }}{% endif %}{% else %}#{% endif %}" tabindex="-1">Previous</a>
+</li>
+
+<!-- Page Numbers -->
+{% for num in blogs.paginator.page_range %}
+  <li class="page-item {% if blogs.number == num %}active{% endif %}">
+    <a class="page-link" href="?page={{ num }}{% if request.GET.hashtag %}&hashtag={{ request.GET.hashtag }}{% endif %}{% if request.GET.category %}&category={{ request.GET.category }}{% endif %}">{{ num }}</a>
+  </li>
+{% endfor %}
+
+<!-- Next Button -->
+<li class="page-item {% if not blogs.has_next %}disabled{% endif %}">
+  <a class="page-link" href="{% if blogs.has_next %}?page={{ blogs.next_page_number }}{% if request.GET.hashtag %}&hashtag={{ request.GET.hashtag }}{% endif %}{% if request.GET.category %}&category={{ request.GET.category }}{% endif %}{% else %}#{% endif %}">Next</a>
+</li>
+
+        </ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+{% endblock body %}

@@ -1,0 +1,36 @@
+/* custom_admin.css */
+body {
+  font-size: 16px !important;
+  /* Increase the body font size */
+}
+
+/* You can also increase the font size of specific parts like headings, labels, etc. */
+#content-main h1 {
+  font-size: 24px !important;
+  /* Increase the font size of the main heading */
+}
+
+#content-main h2 {
+  font-size: 20px !important;
+  /* Increase the font size of sub-headings */
+}
+
+#content-main .module h2 {
+  font-size: 18px !important;
+  /* Increase font size of section headers */
+}
+
+/* Modify font size of table headers */
+#result_list th {
+  font-size: 16px !important;
+}
+
+/* Increase font size of form labels */
+fieldset.admin-related .field-box label {
+  font-size: 16px !important;
+}
+
+/* Modify font size for buttons */
+#content-main .submit-row input {
+  font-size: 16px !important;
+}

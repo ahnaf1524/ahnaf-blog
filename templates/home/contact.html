@@ -1,0 +1,60 @@
+{% extends "base.html" %}
+{% block title %}Contact Me{% endblock title %}
+{% block body %}
+<div class="container mt-5">
+  <!-- Website Contact Header -->
+  <div class="text-center mb-5">
+    <h1 class="display-5 fw-bold">Get in Touch</h1>
+    <p class="lead text-muted">We'd love to hear from you. Send us a message and we'll get back to you as soon as possible!</p>
+  </div>
+
+ <!-- Alerts -->
+{% if success %}
+<div class="alert alert-success alert-dismissible fade show text-center" role="alert">
+  <strong>Thank you!</strong> Your message has been submitted successfully.
+  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+</div>
+{% elif error %}
+<div class="alert alert-danger alert-dismissible fade show text-center" role="alert">
+  <strong>Error!</strong> {{ error }}
+  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+</div>
+{% endif %}
+
+
+  <!-- Contact Form -->
+  <form method="post" action="/contact"> 
+    {% csrf_token %}
+    <div class="row mb-3">
+      <div class="col-md-6">
+        <label for="name" class="form-label">Full Name</label>
+        <input type="text" name="name" class="form-control" id="name" placeholder="Enter your full name" required>
+      </div>
+      <div class="col-md-6">
+        <label for="email" class="form-label">Email Address</label>
+        <input type="email" name="email" class="form-control" id="email" placeholder="example@example.com" required>
+      </div>
+    </div>
+  
+    <div class="row mb-3">
+      <div class="col-md-6">
+        <label for="phone" class="form-label">Phone Number</label>
+        <input type="tel" name="phone" class="form-control" id="phone" placeholder="Enter your phone number">
+      </div>
+      <div class="col-md-6">
+        <label for="subject" class="form-label">Subject</label>
+        <input type="text" name="subject" class="form-control" id="subject" placeholder="Enter subject">
+      </div>
+    </div>
+  
+    <div class="mb-3">
+      <label for="message" class="form-label">Your Message</label>
+      <textarea class="form-control" name="message" id="message" rows="5" placeholder="Type your message here..." required></textarea>
+    </div>
+  
+    <div class="text-center">
+      <button type="submit" class="btn btn-primary px-5">Submit</button>
+    </div>
+  </form>
+</div>
+{% endblock body %}
