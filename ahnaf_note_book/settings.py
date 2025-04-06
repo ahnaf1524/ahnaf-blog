@@ -28,10 +28,10 @@ SECRET_KEY = 'django-insecure-5pv0!^i)33hv@c53i76=_r*9qd8$0#tt4si7oskprq0%xo09!#
 DEBUG = False
 
 # Development
-ALLOWED_HOSTS = ['https://ahnaf-blog.onrender.com']
+# ALLOWED_HOSTS = ['https://ahnaf-blog.onrender.com']
 # For Deploy
 # ALLOWED_HOSTS = os.getenv("DJANGO_ALLOWED_HOSTS", "localhost,127.0.0.1,[::1]").split(",")
-
+ALLOWED_HOSTS = ['localhost', '127.0.0.1'] + os.environ.get('RENDER_EXTERNAL_HOSTNAME', '').split(',')
 # Application definition
 
 INSTALLED_APPS = [
